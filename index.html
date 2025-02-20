@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="Conversor de JSON para classes Dart. Converta JSON em código Dart completo com métodos fromJson, toJson, copyWith e mais. Ideal para desenvolvedores Flutter e Dart."
+    />
+    <meta
+      name="keywords"
+      content="JSON, Dart, conversor, Flutter, fromJson, toJson, code generator"
+    />
+    <meta name="author" content="Seu Nome ou Empresa" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="index, follow" />
+    <title>Conversor de JSON para Classes Dart - Ferramenta Online</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+      };
+    </script>
+
+    <!-- Font Awesome sem integrity -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Ace Editor -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.15.3/ace.js"></script>
+  </head>
+  <body class="bg-gray-900 text-white min-h-screen flex flex-col">
+    <header class="py-4 bg-gray-800 shadow">
+      <div class="container mx-auto px-4 flex items-center justify-between">
+        <h1 class="text-2xl font-bold">
+          <i class="fa-solid fa-code"></i> JSON para Dart Converter
+        </h1>
+        <span class="text-sm text-gray-400"
+          >Ferramenta gratuita para converter JSON em classes Dart
+          completas</span
+        >
+      </div>
+    </header>
+
+    <main class="flex-grow container mx-auto px-4 py-6">
+      <!-- Breve explicação -->
+      <section class="mb-6">
+        <p class="text-gray-300">
+          Este conversor transforma seu JSON em código Dart completo, com
+          métodos <code>fromJson</code>, <code>toJson</code>,
+          <code>copyWith</code> e outros, facilitando a integração em seus
+          projetos Flutter ou Dart. Basta inserir o nome da classe raiz e colar
+          seu JSON no editor à esquerda. Clique em "Gerar Código" e veja o
+          resultado no painel à direita. Você também pode copiar o código gerado
+          com um clique.
+        </p>
+      </section>
+
+      <div class="flex flex-col lg:flex-row gap-6">
+        <!-- Área de entrada -->
+        <div class="lg:w-1/2 bg-gray-800 p-6 rounded shadow flex flex-col">
+          <div class="mb-4">
+            <label
+              for="className"
+              class="block text-gray-300 font-semibold mb-1"
+              >Nome da Classe Raiz</label
+            >
+            <input
+              id="className"
+              type="text"
+              placeholder="Ex: Response"
+              class="w-full border border-gray-600 rounded p-2 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <div class="mb-4">
+            <label
+              for="jsonEditor"
+              class="block text-gray-300 font-semibold mb-1"
+              >JSON</label
+            >
+            <!-- Ace Editor para entrada com altura fixa -->
+            <div
+              id="jsonEditor"
+              style="height: auto; min-height: 500px;"
+              class="w-full h-64 border border-gray-600 rounded"
+            ></div>
+          </div>
+          <div class="mt-4 flex justify-center">
+            <button
+              id="generateBtn"
+              class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded inline-flex items-center"
+            >
+              <i class="fa-solid fa-magic mr-2"></i> Gerar Código Dart
+            </button>
+          </div>
+        </div>
+
+        <!-- Área de saída -->
+        <div class="lg:w-1/2 bg-gray-800 p-6 rounded shadow flex flex-col">
+          <div class="flex items-center justify-between mb-2">
+            <h2 class="text-2xl font-bold">Código Gerado</h2>
+            <button
+              id="copyBtn"
+              class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded inline-flex items-center"
+            >
+              <i class="fa-solid fa-copy mr-2"></i> Copiar
+            </button>
+          </div>
+          <!-- Ace Editor para saída (read-only) com altura fixa -->
+          <div
+            id="outputEditor"
+            style="height: auto; min-height: 600px;"
+            class="w-full h-64 border border-gray-600 rounded"
+          ></div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="bg-gray-800 py-4">
+      <div class="container mx-auto px-4 text-center text-gray-500 text-sm">
+        &copy; 2025 JSON para Dart Converter. Todos os direitos reservados.
+      </div>
+    </footer>
+
+    <script>
+      // Inicializa a instância do Ace Editor para o JSON de entrada
+      let inputEditor = ace.edit("jsonEditor");
+      inputEditor.setTheme("ace/theme/monokai");
+      inputEditor.session.setMode("ace/mode/json");
+      inputEditor.setOptions({
+        fontSize: "14px",
+        showPrintMargin: false,
+        wrap: true,
+      });
+
+      // Inicializa a instância do Ace Editor para a saída (read-only)
+      let outputEditor = ace.edit("outputEditor");
+      outputEditor.setTheme("ace/theme/monokai");
+      outputEditor.session.setMode("ace/mode/dart");
+      outputEditor.setOptions({
+        fontSize: "14px",
+        showPrintMargin: false,
+        wrap: true,
+        readOnly: true,
+        highlightActiveLine: false,
+        highlightGutterLine: false,
+      });
+      outputEditor.renderer.$cursorLayer.element.style.display = "none";
+
+      // Função para inferir o tipo Dart a partir de um valor do JSON
+      function inferType(key, value) {
+        if (value === null) return "dynamic";
+        if (typeof value === "string") {
+          let date = new Date(value);
+          if (!isNaN(date.getTime()) && value.match(/^\d{4}-\d{2}-\d{2}T/)) {
+            return "DateTime";
+          }
+          return "String";
+        }
+        if (typeof value === "number") {
+          return Number.isInteger(value) ? "int" : "double";
+        }
+        if (typeof value === "boolean") return "bool";
+        if (Array.isArray(value)) {
+          if (value.length > 0) {
+            let innerType = inferType(key, value[0]);
+            return innerType === "Object"
+              ? `List<${capitalize(key)}Shared>`
+              : `List<${innerType}>`;
+          }
+          return "List<dynamic>";
+        }
+        if (typeof value === "object") return "Object";
+        return "dynamic";
+      }
+
+      // Função para transformar uma string em PascalCase e adicionar o sufixo "Shared"
+      function capitalize(str) {
+        if (!str) return str;
+        return str.charAt(0).toUpperCase() + str.slice(1);
+      }
+
+      // Armazena as definições de classes geradas para evitar duplicidade
+      let generatedClasses = {};
+
+      // Gera o código Dart para uma classe com base em um objeto JSON
+      function generateClassCode(className, jsonObj) {
+        if (generatedClasses[className]) return ""; // evita duplicar classes já geradas
+        generatedClasses[className] = true;
+
+        let properties = "";
+        let constructorParams = "";
+        let copyWithParams = "";
+        let copyWithAssignments = "";
+        let fromJsonAssignments = "";
+        let toJsonAssignments = "";
+
+        let subClassesCode = "";
+
+        for (let key in jsonObj) {
+          let value = jsonObj[key];
+          let type = inferType(key, value);
+          let propertyType = type;
+
+          if (type === "Object" && value !== null) {
+            let subClassName = capitalize(key) + "Shared";
+            propertyType = subClassName;
+            subClassesCode += generateClassCode(subClassName, value);
+            fromJsonAssignments += `    ${key}: json["${key}"] == null ? null : ${subClassName}.fromJson(json["${key}"]),\n`;
+            toJsonAssignments += `    "${key}": ${key}?.toJson(),\n`;
+          } else if (type.startsWith("List<")) {
+            if (
+              value.length > 0 &&
+              typeof value[0] === "object" &&
+              value[0] !== null
+            ) {
+              let subClassName = capitalize(key) + "Shared";
+              propertyType = `List<${subClassName}>`;
+              subClassesCode += generateClassCode(subClassName, value[0]);
+              fromJsonAssignments += `    ${key}: json["${key}"] == null ? null : List<${subClassName}>.from(json["${key}"].map((x) => ${subClassName}.fromJson(x))),\n`;
+              toJsonAssignments += `    "${key}": ${key}?.map((x) => x.toJson())?.toList(),\n`;
+            } else {
+              fromJsonAssignments += `    ${key}: json["${key}"],\n`;
+              toJsonAssignments += `    "${key}": ${key},\n`;
+            }
+          } else if (type === "DateTime") {
+            fromJsonAssignments += `    ${key}: json["${key}"] == null ? null : DateTime.parse(json["${key}"]),\n`;
+            toJsonAssignments += `    "${key}": ${key}?.toIso8601String(),\n`;
+          } else {
+            fromJsonAssignments += `    ${key}: json["${key}"],\n`;
+            toJsonAssignments += `    "${key}": ${key},\n`;
+          }
+
+          properties += `  ${propertyType}? ${key};\n`;
+          constructorParams += `    this.${key},\n`;
+          copyWithParams += `    ${propertyType}? ${key},\n`;
+          copyWithAssignments += `    ${key}: ${key} ?? this.${key},\n`;
+        }
+
+        let classCode = `
+class ${className} {
+${properties}
+  ${className}({
+${constructorParams}  });
+  
+  ${className} copyWith({
+${copyWithParams}  }) =>
+      ${className}(
+${copyWithAssignments}      );
+  
+  factory ${className}.fromRawJson(String str) => ${className}.fromJson(json.decode(str));
+  
+  String toRawJson() => json.encode(toJson());
+  
+  factory ${className}.fromJson(Map<String, dynamic> json) => ${className}(
+${fromJsonAssignments}  );
+  
+  Map<String, dynamic> toJson() => {
+${toJsonAssignments}  };
+}
+`;
+
+        return subClassesCode + classCode;
+      }
+
+      function generateDartCode(rootClassName, jsonString) {
+        generatedClasses = {};
+        let parsed;
+        try {
+          parsed = JSON.parse(jsonString);
+        } catch (e) {
+          return "// Erro: JSON inválido";
+        }
+        let classesCode = "";
+        if (typeof parsed === "object" && !Array.isArray(parsed)) {
+          classesCode = generateClassCode(rootClassName, parsed);
+        } else if (
+          Array.isArray(parsed) &&
+          parsed.length > 0 &&
+          typeof parsed[0] === "object"
+        ) {
+          classesCode = generateClassCode(rootClassName, parsed[0]);
+        } else {
+          return "// O JSON deve ser um objeto ou um array de objetos";
+        }
+        let imports = `import 'dart:convert';\n\n`;
+        return imports + classesCode;
+      }
+
+      let generateBtn = document.getElementById("generateBtn");
+      generateBtn.addEventListener("click", () => {
+        let className = document.getElementById("className").value.trim();
+        let jsonInput = inputEditor.getValue().trim();
+        if (!className) {
+          outputEditor.setValue("// Por favor, informe o nome da classe raiz.");
+          return;
+        }
+        if (!jsonInput) {
+          outputEditor.setValue("// Por favor, insira o JSON.");
+          return;
+        }
+        let code = generateDartCode(className, jsonInput);
+        outputEditor.setValue(code);
+        outputEditor.clearSelection();
+      });
+
+      let copyBtn = document.getElementById("copyBtn");
+      copyBtn.addEventListener("click", () => {
+        let code = outputEditor.getValue();
+        navigator.clipboard
+          .writeText(code)
+          .then(() => {
+            copyBtn.innerHTML = `<i class="fa-solid fa-check mr-2"></i> Copiado!`;
+            setTimeout(() => {
+              copyBtn.innerHTML = `<i class="fa-solid fa-copy mr-2"></i> Copiar`;
+            }, 2000);
+          })
+          .catch((err) => {
+            console.error("Erro ao copiar o código: ", err);
+          });
+      });
+    </script>
+  </body>
+</html>
