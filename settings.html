@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Configurações - JSON para Dart Converter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body class="bg-gray-900 text-white min-h-screen">
+    <!-- Include Navigation -->
+    <div id="nav-placeholder"></div>
+
+    <main class="container mx-auto px-4 py-8">
+      <h1 class="text-4xl font-bold mb-8">Configurações</h1>
+
+      <div class="max-w-3xl mx-auto">
+        <form id="settingsForm" class="space-y-6">
+          <!-- Configurações Gerais -->
+          <section class="bg-gray-800 p-6 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-bold mb-4">Configurações Gerais</h2>
+
+            <div class="space-y-4">
+              <div class="flex items-center">
+                <input
+                  type="checkbox"
+                  id="generateCopyWith"
+                  class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500"
+                  checked
+                />
+                <label
+                  for="generateCopyWith"
+                  class="ml-2 text-sm font-medium text-gray-300"
+                >
+                  Gerar método copyWith
+                </label>
+              </div>
+
+              <div class="flex items-center">
+                <input
+                  type="checkbox"
+                  id="generateToRawJson"
+                  class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500"
+                  checked
+                />
+                <label
+                  for="generateToRawJson"
+                  class="ml-2 text-sm font-medium text-gray-300"
+                >
+                  Gerar métodos fromRawJson/toRawJson
+                </label>
+              </div>
+
+              <div class="flex items-center">
+                <input
+                  type="checkbox"
+                  id="useNullSafety"
+                  class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500"
+                  checked
+                />
+                <label
+                  for="useNullSafety"
+                  class="ml-2 text-sm font-medium text-gray-300"
+                >
+                  Usar Null Safety
+                </label>
+              </div>
+            </div>
+          </section>
+
+          <!-- Configurações de Nomenclatura -->
+          <section class="bg-gray-800 p-6 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-bold mb-4">
+              Configurações de Nomenclatura
+            </h2>
+
+            <div class="space-y-4">
+              <div>
+                <label
+                  for="classNameSuffix"
+                  class="block text-sm font-medium text-gray-300 mb-1"
+                >
+                  Sufixo para Classes (opcional)
+                </label>
+                <input
+                  type="text"
+                  id="classNameSuffix"
+                  class="w-full border border-gray-600 rounded p-2 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Ex: Model"
+                />
+              </div>
+
+              <div>
+                <label
+                  for="enumNaming"
+                  class="block text-sm font-medium text-gray-300 mb-1"
+                >
+                  Convenção para Enums
+                </label>
+                <select
+                  id="enumNaming"
+                  class="w-full border border-gray-600 rounded p-2 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="PascalCase"
+                    >PascalCase (ex: OrderStatus)</option
+                  >
+                  <option value="SCREAMING_SNAKE_CASE"
+                    >SCREAMING_SNAKE_CASE (ex: ORDER_STATUS)</option
+                  >
+                </select>
+              </div>
+            </div>
+          </section>
+
+          <!-- Configurações de Formatação -->
+          <section class="bg-gray-800 p-6 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-bold mb-4">Configurações de Formatação</h2>
+
+            <div class="space-y-4">
+              <div>
+                <label
+                  for="indentation"
+                  class="block text-sm font-medium text-gray-300 mb-1"
+                >
+                  Indentação
+                </label>
+                <select
+                  id="indentation"
+                  class="w-full border border-gray-600 rounded p-2 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="2">2 espaços</option>
+                  <option value="4">4 espaços</option>
+                  <option value="tab">Tab</option>
+                </select>
+              </div>
+
+              <div class="flex items-center">
+                <input
+                  type="checkbox"
+                  id="sortProperties"
+                  class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500"
+                  checked
+                />
+                <label
+                  for="sortProperties"
+                  class="ml-2 text-sm font-medium text-gray-300"
+                >
+                  Ordenar propriedades alfabeticamente
+                </label>
+              </div>
+            </div>
+          </section>
+
+          <!-- Configurações de Importação -->
+          <section class="bg-gray-800 p-6 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-bold mb-4">Configurações de Importação</h2>
+
+            <div class="space-y-4">
+              <div class="flex items-center">
+                <input
+                  type="checkbox"
+                  id="importJson"
+                  class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500"
+                  checked
+                />
+                <label
+                  for="importJson"
+                  class="ml-2 text-sm font-medium text-gray-300"
+                >
+                  Incluir import 'dart:convert'
+                </label>
+              </div>
+
+              <div>
+                <label
+                  for="additionalImports"
+                  class="block text-sm font-medium text-gray-300 mb-1"
+                >
+                  Importações Adicionais
+                </label>
+                <textarea
+                  id="additionalImports"
+                  rows="3"
+                  class="w-full border border-gray-600 rounded p-2 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Ex: import 'package:my_package/models/base_model.dart';"
+                ></textarea>
+              </div>
+            </div>
+          </section>
+
+          <!-- Botões de Ação -->
+          <div class="flex justify-end space-x-4">
+            <button
+              type="button"
+              id="resetBtn"
+              class="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
+            >
+              Restaurar Padrões
+            </button>
+            <button
+              type="submit"
+              class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              Salvar Configurações
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <footer class="bg-gray-800 py-4 mt-8">
+      <div class="container mx-auto px-4 text-center text-gray-500 text-sm">
+        &copy; 2025 JSON para Dart Converter. Todos os direitos reservados.
+      </div>
+    </footer>
+
+    <script>
+      // Load navigation
+      fetch("navigation.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("nav-placeholder").innerHTML = data;
+        });
+
+      // Load saved settings
+      function loadSettings() {
+        const settings = JSON.parse(
+          localStorage.getItem("dartConverterSettings") || "{}"
+        );
+
+        // Apply saved settings to form
+        document.getElementById("generateCopyWith").checked =
+          settings.generateCopyWith !== false;
+        document.getElementById("generateToRawJson").checked =
+          settings.generateToRawJson !== false;
+        document.getElementById("useNullSafety").checked =
+          settings.useNullSafety !== false;
+        document.getElementById("classNameSuffix").value =
+          settings.classNameSuffix || "";
+        document.getElementById("enumNaming").value =
+          settings.enumNaming || "PascalCase";
+        document.getElementById("indentation").value =
+          settings.indentation || "2";
+        document.getElementById("sortProperties").checked =
+          settings.sortProperties !== false;
+        document.getElementById("importJson").checked =
+          settings.importJson !== false;
+        document.getElementById("additionalImports").value =
+          settings.additionalImports || "";
+      }
+
+      // Save settings
+      function saveSettings(event) {
+        event.preventDefault();
+
+        const settings = {
+          generateCopyWith: document.getElementById("generateCopyWith").checked,
+          generateToRawJson: document.getElementById("generateToRawJson")
+            .checked,
+          useNullSafety: document.getElementById("useNullSafety").checked,
+          classNameSuffix: document.getElementById("classNameSuffix").value,
+          enumNaming: document.getElementById("enumNaming").value,
+          indentation: document.getElementById("indentation").value,
+          sortProperties: document.getElementById("sortProperties").checked,
+          importJson: document.getElementById("importJson").checked,
+          additionalImports: document.getElementById("additionalImports").value,
+        };
+
+        localStorage.setItem("dartConverterSettings", JSON.stringify(settings));
+
+        // Show success message
+        alert("Configurações salvas com sucesso!");
+      }
+
+      // Reset settings
+      function resetSettings() {
+        if (
+          confirm("Tem certeza que deseja restaurar as configurações padrão?")
+        ) {
+          localStorage.removeItem("dartConverterSettings");
+          loadSettings();
+        }
+      }
+
+      // Event listeners
+      document
+        .getElementById("settingsForm")
+        .addEventListener("submit", saveSettings);
+      document
+        .getElementById("resetBtn")
+        .addEventListener("click", resetSettings);
+
+      // Load settings on page load
+      loadSettings();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exemplos - JSON para Dart Converter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.15.3/ace.js"></script>
+  </head>
+  <body class="bg-gray-900 text-white min-h-screen">
+    <!-- Include Navigation -->
+    <div id="nav-placeholder"></div>
+
+    <main class="container mx-auto px-4 py-8">
+      <h1 class="text-4xl font-bold mb-8">Exemplos</h1>
+
+      <div class="space-y-8">
+        <!-- Exemplo 1: Usuário Simples -->
+        <section class="bg-gray-800 p-6 rounded-lg shadow-lg">
+          <h2 class="text-2xl font-bold mb-4">Exemplo 1: Usuário Simples</h2>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div>
+              <h3 class="text-xl font-semibold mb-2">JSON de Entrada</h3>
+              <div
+                id="example1-json"
+                class="h-64 border border-gray-600 rounded"
+              ></div>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mb-2">Código Dart Gerado</h3>
+              <div
+                id="example1-dart"
+                class="h-64 border border-gray-600 rounded"
+              ></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Exemplo 2: Produto com Lista -->
+        <section class="bg-gray-800 p-6 rounded-lg shadow-lg">
+          <h2 class="text-2xl font-bold mb-4">Exemplo 2: Produto com Lista</h2>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div>
+              <h3 class="text-xl font-semibold mb-2">JSON de Entrada</h3>
+              <div
+                id="example2-json"
+                class="h-64 border border-gray-600 rounded"
+              ></div>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mb-2">Código Dart Gerado</h3>
+              <div
+                id="example2-dart"
+                class="h-64 border border-gray-600 rounded"
+              ></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Exemplo 3: Pedido Complexo -->
+        <section class="bg-gray-800 p-6 rounded-lg shadow-lg">
+          <h2 class="text-2xl font-bold mb-4">Exemplo 3: Pedido Complexo</h2>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div>
+              <h3 class="text-xl font-semibold mb-2">JSON de Entrada</h3>
+              <div
+                id="example3-json"
+                class="h-64 border border-gray-600 rounded"
+              ></div>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mb-2">Código Dart Gerado</h3>
+              <div
+                id="example3-dart"
+                class="h-64 border border-gray-600 rounded"
+              ></div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="bg-gray-800 py-4 mt-8">
+      <div class="container mx-auto px-4 text-center text-gray-500 text-sm">
+        &copy; 2025 JSON para Dart Converter. Todos os direitos reservados.
+      </div>
+    </footer>
+
+    <script>
+      // Load navigation
+      fetch("navigation.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("nav-placeholder").innerHTML = data;
+        });
+
+      // Example 1: Simple User
+      const example1Json = {
+        id: 1,
+        name: "John Doe",
+        email: "john@example.com",
+        isActive: true,
+        createdAt: "2024-03-20T10:00:00Z",
+      };
+
+      const example1Dart = `class User {
+  int? id;
+  String? name;
+  String? email;
+  bool? isActive;
+  DateTime? createdAt;
+
+  User({
+    this.id,
+    this.name,
+    this.email,
+    this.isActive,
+    this.createdAt,
+  });
+
+  User copyWith({
+    int? id,
+    String? name,
+    String? email,
+    bool? isActive,
+    DateTime? createdAt,
+  }) =>
+      User(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        email: email ?? this.email,
+        isActive: isActive ?? this.isActive,
+        createdAt: createdAt ?? this.createdAt,
+      );
+
+  factory User.fromJson(Map<String, dynamic> json) => User(
+        id: json["id"],
+        name: json["name"],
+        email: json["email"],
+        isActive: json["isActive"],
+        createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "email": email,
+        "isActive": isActive,
+        "createdAt": createdAt?.toIso8601String(),
+      };
+}`;
+
+      // Example 2: Product with List
+      const example2Json = {
+        id: 1,
+        name: "Smartphone",
+        price: 999.99,
+        categories: ["Electronics", "Gadgets"],
+        specifications: {
+          color: "Black",
+          storage: "128GB",
+          ram: "8GB",
+        },
+      };
+
+      const example2Dart = `class Product {
+  int? id;
+  String? name;
+  double? price;
+  List<String>? categories;
+  Specifications? specifications;
+
+  Product({
+    this.id,
+    this.name,
+    this.price,
+    this.categories,
+    this.specifications,
+  });
+
+  Product copyWith({
+    int? id,
+    String? name,
+    double? price,
+    List<String>? categories,
+    Specifications? specifications,
+  }) =>
+      Product(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        price: price ?? this.price,
+        categories: categories ?? this.categories,
+        specifications: specifications ?? this.specifications,
+      );
+
+  factory Product.fromJson(Map<String, dynamic> json) => Product(
+        id: json["id"],
+        name: json["name"],
+        price: json["price"]?.toDouble(),
+        categories: json["categories"] == null ? [] : List<String>.from(json["categories"]!.map((x) => x)),
+        specifications: json["specifications"] == null ? null : Specifications.fromJson(json["specifications"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "price": price,
+        "categories": categories,
+        "specifications": specifications?.toJson(),
+      };
+}
+
+class Specifications {
+  String? color;
+  String? storage;
+  String? ram;
+
+  Specifications({
+    this.color,
+    this.storage,
+    this.ram,
+  });
+
+  Specifications copyWith({
+    String? color,
+    String? storage,
+    String? ram,
+  }) =>
+      Specifications(
+        color: color ?? this.color,
+        storage: storage ?? this.storage,
+        ram: ram ?? this.ram,
+      );
+
+  factory Specifications.fromJson(Map<String, dynamic> json) => Specifications(
+        color: json["color"],
+        storage: json["storage"],
+        ram: json["ram"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "color": color,
+        "storage": storage,
+        "ram": ram,
+      };
+}`;
+
+      // Example 3: Complex Order
+      const example3Json = {
+        orderId: "ORD-123",
+        customer: {
+          id: 1,
+          name: "Jane Smith",
+          email: "jane@example.com",
+        },
+        items: [
+          {
+            productId: 1,
+            name: "Laptop",
+            quantity: 1,
+            price: 1299.99,
+          },
+          {
+            productId: 2,
+            name: "Mouse",
+            quantity: 2,
+            price: 29.99,
+          },
+        ],
+        total: 1359.97,
+        status: "PENDING",
+        createdAt: "2024-03-20T15:30:00Z",
+      };
+
+      const example3Dart = `class Order {
+  String? orderId;
+  Customer? customer;
+  List<OrderItem>? items;
+  double? total;
+  String? status;
+  DateTime? createdAt;
+
+  Order({
+    this.orderId,
+    this.customer,
+    this.items,
+    this.total,
+    this.status,
+    this.createdAt,
+  });
+
+  Order copyWith({
+    String? orderId,
+    Customer? customer,
+    List<OrderItem>? items,
+    double? total,
+    String? status,
+    DateTime? createdAt,
+  }) =>
+      Order(
+        orderId: orderId ?? this.orderId,
+        customer: customer ?? this.customer,
+        items: items ?? this.items,
+        total: total ?? this.total,
+        status: status ?? this.status,
+        createdAt: createdAt ?? this.createdAt,
+      );
+
+  factory Order.fromJson(Map<String, dynamic> json) => Order(
+        orderId: json["orderId"],
+        customer: json["customer"] == null ? null : Customer.fromJson(json["customer"]),
+        items: json["items"] == null ? [] : List<OrderItem>.from(json["items"]!.map((x) => OrderItem.fromJson(x))),
+        total: json["total"]?.toDouble(),
+        status: json["status"],
+        createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "orderId": orderId,
+        "customer": customer?.toJson(),
+        "items": items?.map((x) => x.toJson()).toList(),
+        "total": total,
+        "status": status,
+        "createdAt": createdAt?.toIso8601String(),
+      };
+}
+
+class Customer {
+  int? id;
+  String? name;
+  String? email;
+
+  Customer({
+    this.id,
+    this.name,
+    this.email,
+  });
+
+  Customer copyWith({
+    int? id,
+    String? name,
+    String? email,
+  }) =>
+      Customer(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        email: email ?? this.email,
+      );
+
+  factory Customer.fromJson(Map<String, dynamic> json) => Customer(
+        id: json["id"],
+        name: json["name"],
+        email: json["email"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "email": email,
+      };
+}
+
+class OrderItem {
+  int? productId;
+  String? name;
+  int? quantity;
+  double? price;
+
+  OrderItem({
+    this.productId,
+    this.name,
+    this.quantity,
+    this.price,
+  });
+
+  OrderItem copyWith({
+    int? productId,
+    String? name,
+    int? quantity,
+    double? price,
+  }) =>
+      OrderItem(
+        productId: productId ?? this.productId,
+        name: name ?? this.name,
+        quantity: quantity ?? this.quantity,
+        price: price ?? this.price,
+      );
+
+  factory OrderItem.fromJson(Map<String, dynamic> json) => OrderItem(
+        productId: json["productId"],
+        name: json["name"],
+        quantity: json["quantity"],
+        price: json["price"]?.toDouble(),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "productId": productId,
+        "name": name,
+        "quantity": quantity,
+        "price": price,
+      };
+}`;
+
+      // Initialize editors
+      function initEditor(elementId, content, mode) {
+        const editor = ace.edit(elementId);
+        editor.setTheme("ace/theme/monokai");
+        editor.session.setMode(`ace/mode/${mode}`);
+        editor.setValue(content);
+        editor.setOptions({
+          fontSize: "14px",
+          showPrintMargin: false,
+          readOnly: true,
+          highlightActiveLine: false,
+          highlightGutterLine: false,
+        });
+        editor.renderer.$cursorLayer.element.style.display = "none";
+      }
+
+      // Initialize all editors
+      initEditor(
+        "example1-json",
+        JSON.stringify(example1Json, null, 2),
+        "json"
+      );
+      initEditor("example1-dart", example1Dart, "dart");
+      initEditor(
+        "example2-json",
+        JSON.stringify(example2Json, null, 2),
+        "json"
+      );
+      initEditor("example2-dart", example2Dart, "dart");
+      initEditor(
+        "example3-json",
+        JSON.stringify(example3Json, null, 2),
+        "json"
+      );
+      initEditor("example3-dart", example3Dart, "dart");
+    </script>
+  </body>
+</html>

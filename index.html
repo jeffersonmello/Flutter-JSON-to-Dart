@@ -23,7 +23,7 @@
       };
     </script>
 
-    <!-- Font Awesome sem integrity -->
+    <!-- Font Awesome -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -33,30 +33,26 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.15.3/ace.js"></script>
   </head>
   <body class="bg-gray-900 text-white min-h-screen flex flex-col">
-    <header class="py-4 bg-gray-800 shadow">
-      <div class="container mx-auto px-4 flex items-center justify-between">
-        <h1 class="text-2xl font-bold">
-          <i class="fa-solid fa-code"></i> JSON para Dart Converter
-        </h1>
-        <span class="text-sm text-gray-400"
-          >Ferramenta gratuita para converter JSON em classes Dart
-          completas</span
-        >
-      </div>
-    </header>
+    <!-- Include Navigation -->
+    <div id="nav-placeholder"></div>
 
     <main class="flex-grow container mx-auto px-4 py-6">
       <!-- Breve explicação -->
       <section class="mb-6">
-        <p class="text-gray-300">
-          Este conversor transforma seu JSON em código Dart completo, com
-          métodos <code>fromJson</code>, <code>toJson</code>,
-          <code>copyWith</code> e outros, facilitando a integração em seus
-          projetos Flutter ou Dart. Basta inserir o nome da classe raiz e colar
-          seu JSON no editor à esquerda. Clique em "Gerar Código" e veja o
-          resultado no painel à direita. Você também pode copiar o código gerado
-          com um clique.
-        </p>
+        <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+          <h2 class="text-2xl font-bold mb-4">
+            Bem-vindo ao Conversor JSON para Dart
+          </h2>
+          <p class="text-gray-300">
+            Este conversor transforma seu JSON em código Dart completo, com
+            métodos <code>fromJson</code>, <code>toJson</code>,
+            <code>copyWith</code> e outros, facilitando a integração em seus
+            projetos Flutter ou Dart. Basta inserir o nome da classe raiz e
+            colar seu JSON no editor à esquerda. Clique em "Gerar Código" e veja
+            o resultado no painel à direita. Você também pode copiar o código
+            gerado com um clique.
+          </p>
+        </div>
       </section>
 
       <div class="flex flex-col lg:flex-row gap-6">
@@ -76,11 +72,25 @@
             />
           </div>
           <div class="mb-4">
-            <label
-              for="jsonEditor"
-              class="block text-gray-300 font-semibold mb-1"
-              >JSON</label
-            >
+            <div class="flex justify-between items-center mb-2">
+              <label for="jsonEditor" class="block text-gray-300 font-semibold"
+                >JSON</label
+              >
+              <div class="flex space-x-2">
+                <button
+                  id="formatJsonBtn"
+                  class="text-sm bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded"
+                >
+                  <i class="fa-solid fa-code mr-1"></i>Formatar
+                </button>
+                <button
+                  id="clearJsonBtn"
+                  class="text-sm bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded"
+                >
+                  <i class="fa-solid fa-trash mr-1"></i>Limpar
+                </button>
+              </div>
+            </div>
             <!-- Ace Editor para entrada com altura fixa -->
             <div
               id="jsonEditor"
@@ -102,12 +112,20 @@
         <div class="lg:w-1/2 bg-gray-800 p-6 rounded shadow flex flex-col">
           <div class="flex items-center justify-between mb-2">
             <h2 class="text-2xl font-bold">Código Gerado</h2>
-            <button
-              id="copyBtn"
-              class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded inline-flex items-center"
-            >
-              <i class="fa-solid fa-copy mr-2"></i> Copiar
-            </button>
+            <div class="flex space-x-2">
+              <button
+                id="downloadBtn"
+                class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded inline-flex items-center"
+              >
+                <i class="fa-solid fa-download mr-2"></i> Download
+              </button>
+              <button
+                id="copyBtn"
+                class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded inline-flex items-center"
+              >
+                <i class="fa-solid fa-copy mr-2"></i> Copiar
+              </button>
+            </div>
           </div>
           <!-- Ace Editor para saída (read-only) com altura fixa -->
           <div
@@ -117,6 +135,41 @@
           ></div>
         </div>
       </div>
+
+      <!-- Dicas e Truques -->
+      <section class="mt-8">
+        <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+          <h2 class="text-2xl font-bold mb-4">Dicas e Truques</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="bg-gray-700 p-4 rounded-lg">
+              <i
+                class="fa-solid fa-lightbulb text-yellow-500 text-2xl mb-2"
+              ></i>
+              <h3 class="text-xl font-semibold mb-2">Use PascalCase</h3>
+              <p class="text-gray-300">
+                Sempre use PascalCase para nomes de classes, seguindo as
+                convenções do Dart.
+              </p>
+            </div>
+            <div class="bg-gray-700 p-4 rounded-lg">
+              <i class="fa-solid fa-code text-blue-500 text-2xl mb-2"></i>
+              <h3 class="text-xl font-semibold mb-2">JSON Válido</h3>
+              <p class="text-gray-300">
+                Certifique-se de que seu JSON está bem formatado e válido antes
+                de gerar o código.
+              </p>
+            </div>
+            <div class="bg-gray-700 p-4 rounded-lg">
+              <i class="fa-solid fa-gear text-green-500 text-2xl mb-2"></i>
+              <h3 class="text-xl font-semibold mb-2">Configurações</h3>
+              <p class="text-gray-300">
+                Personalize a geração do código nas configurações para atender
+                suas necessidades.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
 
     <footer class="bg-gray-800 py-4">
@@ -126,6 +179,13 @@
     </footer>
 
     <script>
+      // Load navigation
+      fetch("navigation.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("nav-placeholder").innerHTML = data;
+        });
+
       // Inicializa a instância do Ace Editor para o JSON de entrada
       let inputEditor = ace.edit("jsonEditor");
       inputEditor.setTheme("ace/theme/monokai");
@@ -168,7 +228,7 @@
           if (value.length > 0) {
             let innerType = inferType(key, value[0]);
             return innerType === "Object"
-              ? `List<${capitalize(key)}Shared>`
+              ? `List<${capitalize(key)}>`
               : `List<${innerType}>`;
           }
           return "List<dynamic>";
@@ -177,7 +237,7 @@
         return "dynamic";
       }
 
-      // Função para transformar uma string em PascalCase e adicionar o sufixo "Shared"
+      // Função para transformar uma string em PascalCase e adicionar o sufixo
       function capitalize(str) {
         if (!str) return str;
         return str.charAt(0).toUpperCase() + str.slice(1);
@@ -206,7 +266,7 @@
           let propertyType = type;
 
           if (type === "Object" && value !== null) {
-            let subClassName = capitalize(key) + "Shared";
+            let subClassName = capitalize(key);
             propertyType = subClassName;
             subClassesCode += generateClassCode(subClassName, value);
             fromJsonAssignments += `    ${key}: json["${key}"] == null ? null : ${subClassName}.fromJson(json["${key}"]),\n`;
@@ -217,7 +277,7 @@
               typeof value[0] === "object" &&
               value[0] !== null
             ) {
-              let subClassName = capitalize(key) + "Shared";
+              let subClassName = capitalize(key);
               propertyType = `List<${subClassName}>`;
               subClassesCode += generateClassCode(subClassName, value[0]);
               fromJsonAssignments += `    ${key}: json["${key}"] == null ? null : List<${subClassName}>.from(json["${key}"].map((x) => ${subClassName}.fromJson(x))),\n`;
@@ -290,6 +350,7 @@ ${toJsonAssignments}  };
         return imports + classesCode;
       }
 
+      // Event Listeners
       let generateBtn = document.getElementById("generateBtn");
       generateBtn.addEventListener("click", () => {
         let className = document.getElementById("className").value.trim();
@@ -321,6 +382,45 @@ ${toJsonAssignments}  };
           .catch((err) => {
             console.error("Erro ao copiar o código: ", err);
           });
+      });
+
+      let formatJsonBtn = document.getElementById("formatJsonBtn");
+      formatJsonBtn.addEventListener("click", () => {
+        try {
+          let jsonInput = inputEditor.getValue().trim();
+          if (jsonInput) {
+            let formatted = JSON.stringify(JSON.parse(jsonInput), null, 2);
+            inputEditor.setValue(formatted);
+          }
+        } catch (e) {
+          alert("JSON inválido. Por favor, verifique a formatação.");
+        }
+      });
+
+      let clearJsonBtn = document.getElementById("clearJsonBtn");
+      clearJsonBtn.addEventListener("click", () => {
+        inputEditor.setValue("");
+      });
+
+      let downloadBtn = document.getElementById("downloadBtn");
+      downloadBtn.addEventListener("click", () => {
+        let code = outputEditor.getValue();
+        if (!code) {
+          alert("Não há código para baixar.");
+          return;
+        }
+
+        let className =
+          document.getElementById("className").value.trim() || "generated";
+        let blob = new Blob([code], { type: "text/plain" });
+        let url = window.URL.createObjectURL(blob);
+        let a = document.createElement("a");
+        a.href = url;
+        a.download = `${className.toLowerCase()}.dart`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
       });
     </script>
   </body>

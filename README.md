@@ -1,34 +1,89 @@
 # JSON para Dart Converter
 
-Uma ferramenta online para converter JSON em classes Dart completas, incluindo métodos como `fromJson`, `toJson`, `copyWith` e outros. Este conversor é ideal para desenvolvedores Flutter e Dart que desejam gerar rapidamente o código necessário para manipular dados JSON.
+Uma ferramenta web gratuita para converter estruturas JSON em classes Dart completas, incluindo métodos `fromJson`, `toJson`, `copyWith` e outros recursos úteis para desenvolvimento Flutter e Dart.
 
-## Recursos
+## Características
 
-- **Conversão Completa:** Gera classes Dart com propriedades, construtor e métodos:
-  - `fromJson`
-  - `toJson`
-  - `fromRawJson`
-  - `toRawJson`
-  - `copyWith`
-- **Editor de Código Integrado:** Utiliza duas instâncias do Ace Editor:
-  - Uma para a entrada do JSON (editável)
-  - Outra para exibir o código Dart gerado (somente leitura)
-- **Interface Moderna em Dark Mode:** Layout responsivo e estilizado com Tailwind CSS e Font Awesome.
-- **Copiar Código:** Botão para copiar o código gerado para a área de transferência com feedback visual.
-- **SEO Otimizado:** Meta tags e descrições otimizadas para indexação e monetização (Adsense).
+- 🚀 Conversão rápida e precisa de JSON para classes Dart
+- 📝 Geração automática de métodos `fromJson` e `toJson`
+- 🔄 Suporte ao método `copyWith` para imutabilidade
+- 📦 Suporte a tipos complexos e aninhados
+- 🎨 Interface moderna e responsiva
+- 🌙 Modo escuro por padrão
+- 📱 Design responsivo para todos os dispositivos
+- 💾 Download do código gerado
+- 📋 Cópia rápida do código
+- ⚙️ Configurações personalizáveis
+
+## Páginas
+
+1. **Página Principal**
+   - Editor JSON com formatação automática
+   - Visualização do código Dart gerado
+   - Botões para copiar e baixar o código
+   - Dicas e truques para uso
+
+2. **Documentação**
+   - Guia completo de uso
+   - Explicação dos recursos
+   - Tipos suportados
+   - Melhores práticas
+
+3. **Exemplos**
+   - Exemplos práticos de conversão
+   - Casos de uso comuns
+   - Demonstração de recursos
+
+4. **Configurações**
+   - Personalização da geração de código
+   - Opções de formatação
+   - Configurações de nomenclatura
+   - Importações personalizadas
 
 ## Tecnologias Utilizadas
 
 - HTML5
-- Tailwind CSS
+- CSS3 (Tailwind CSS)
+- JavaScript
 - Ace Editor
 - Font Awesome
-- JavaScript
+- LocalStorage para configurações
 
 ## Como Usar
 
-1. **Clone o Repositório**
+1. Acesse a página principal
+2. Digite o nome da classe raiz
+3. Cole seu JSON no editor
+4. Clique em "Gerar Código Dart"
+5. Copie ou baixe o código gerado
 
-   ```bash
-   git clone https://github.com/seu-usuario/json-para-dart-converter.git
-   cd json-para-dart-converter
+## Configurações Disponíveis
+
+- Geração de método `copyWith`
+- Geração de métodos `fromRawJson`/`toRawJson`
+- Suporte a Null Safety
+- Sufixo para classes
+- Convenção para enums
+- Indentação
+- Ordenação de propriedades
+- Importações personalizadas
+
+## Contribuindo
+
+Contribuições são bem-vindas! Sinta-se à vontade para:
+
+1. Fazer um fork do projeto
+2. Criar uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abrir um Pull Request
+
+## Licença
+
+Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
+
+## Contato
+
+Seu Nome - [@seutwitter](https://twitter.com/seutwitter) - email@exemplo.com
+
+Link do Projeto: [https://github.com/seuusuario/json-to-dart](https://github.com/seuusuario/json-to-dart)

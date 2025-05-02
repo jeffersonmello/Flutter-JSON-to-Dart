@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentação - JSON para Dart Converter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-900 text-white min-h-screen">
+    <!-- Include Navigation -->
+    <div id="nav-placeholder"></div>
+
+    <main class="container mx-auto px-4 py-8">
+        <h1 class="text-4xl font-bold mb-8">Documentação</h1>
+
+        <div class="space-y-8">
+            <!-- Introdução -->
+            <section class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <h2 class="text-2xl font-bold mb-4">Introdução</h2>
+                <p class="text-gray-300">
+                    O JSON para Dart Converter é uma ferramenta online que permite converter estruturas JSON em classes Dart completas,
+                    incluindo métodos fromJson, toJson, copyWith e outros recursos úteis para desenvolvimento Flutter e Dart.
+                </p>
+            </section>
+
+            <!-- Como Usar -->
+            <section class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <h2 class="text-2xl font-bold mb-4">Como Usar</h2>
+                <div class="space-y-4">
+                    <div class="flex items-start">
+                        <div class="bg-blue-500 rounded-full p-2 mr-4">
+                            <i class="fa-solid fa-1 text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Insira o Nome da Classe</h3>
+                            <p class="text-gray-300">Digite o nome da classe principal que será gerada. Use PascalCase para seguir as convenções do Dart.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-blue-500 rounded-full p-2 mr-4">
+                            <i class="fa-solid fa-2 text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Cole seu JSON</h3>
+                            <p class="text-gray-300">Cole sua estrutura JSON no editor. O JSON deve ser válido e bem formatado.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-blue-500 rounded-full p-2 mr-4">
+                            <i class="fa-solid fa-3 text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Gere o Código</h3>
+                            <p class="text-gray-300">Clique no botão "Gerar Código Dart" e o código será gerado automaticamente.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recursos -->
+            <section class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <h2 class="text-2xl font-bold mb-4">Recursos</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <i class="fa-solid fa-code text-blue-500 text-2xl mb-2"></i>
+                        <h3 class="text-xl font-semibold mb-2">Geração de Classes</h3>
+                        <p class="text-gray-300">Gera classes Dart completas com todos os campos necessários.</p>
+                    </div>
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <i class="fa-solid fa-exchange-alt text-blue-500 text-2xl mb-2"></i>
+                        <h3 class="text-xl font-semibold mb-2">Métodos fromJson/toJson</h3>
+                        <p class="text-gray-300">Implementa automaticamente os métodos de serialização.</p>
+                    </div>
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <i class="fa-solid fa-copy text-blue-500 text-2xl mb-2"></i>
+                        <h3 class="text-xl font-semibold mb-2">Método copyWith</h3>
+                        <p class="text-gray-300">Gera o método copyWith para facilitar a criação de cópias modificadas.</p>
+                    </div>
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <i class="fa-solid fa-list text-blue-500 text-2xl mb-2"></i>
+                        <h3 class="text-xl font-semibold mb-2">Suporte a Listas</h3>
+                        <p class="text-gray-300">Suporte completo para arrays JSON, convertendo-os em List<Type>.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tipos Suportados -->
+            <section class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <h2 class="text-2xl font-bold mb-4">Tipos Suportados</h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-gray-700 rounded-lg">
+                        <thead>
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Tipo JSON</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Tipo Dart</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-600">
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-300">String</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-300">String</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-300">Number (inteiro)</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-300">int</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-300">Number (decimal)</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-300">double</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-300">Boolean</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-300">bool</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-300">Array</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-300">List<T></td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-300">Object</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-300">Classe personalizada</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-300">Date (ISO 8601)</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-300">DateTime</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 py-4 mt-8">
+        <div class="container mx-auto px-4 text-center text-gray-500 text-sm">
+            &copy; 2025 JSON para Dart Converter. Todos os direitos reservados.
+        </div>
+    </footer>
+
+    <script>
+        // Load navigation
+        fetch('navigation.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('nav-placeholder').innerHTML = data;
+            });
+    </script>
+</body>
+</html> 
