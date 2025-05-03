@@ -173,8 +173,54 @@
     </main>
 
     <footer class="bg-gray-800 py-4">
-      <div class="container mx-auto px-4 text-center text-gray-500 text-sm">
-        &copy; 2025 JSON para Dart Converter. Todos os direitos reservados.
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+          <!-- Visit Counter -->
+          <div class="text-center">
+            <div class="bg-gray-700 p-4 rounded-lg">
+              <i class="fa-solid fa-eye text-blue-500 text-2xl mb-2"></i>
+              <h3 class="text-lg font-semibold mb-2">Visitas</h3>
+              <div id="visitCounter" class="text-2xl font-bold text-white">
+                0
+              </div>
+            </div>
+          </div>
+
+          <!-- Donation System -->
+          <div class="text-center">
+            <div class="bg-gray-700 p-4 rounded-lg">
+              <i class="fa-solid fa-heart text-red-500 text-2xl mb-2"></i>
+              <h3 class="text-lg font-semibold mb-2">Apoie o Projeto</h3>
+              <p class="text-gray-300 mb-2">
+                Ajude a manter este projeto ativo
+              </p>
+              <button
+                id="donateBtn"
+                class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded inline-flex items-center"
+              >
+                <i class="fa-solid fa-gift mr-2"></i> Doar
+              </button>
+            </div>
+          </div>
+
+          <!-- Advertiser Link -->
+          <div class="text-center">
+            <div class="bg-gray-700 p-4 rounded-lg">
+              <i class="fa-solid fa-bullhorn text-yellow-500 text-2xl mb-2"></i>
+              <h3 class="text-lg font-semibold mb-2">Seja um Anunciante</h3>
+              <p class="text-gray-300 mb-2">Alcance nossa comunidade</p>
+              <a
+                href="advertisers.html"
+                class="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded inline-flex items-center"
+              >
+                <i class="fa-solid fa-arrow-right mr-2"></i> Saiba Mais
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="text-center text-gray-500 text-sm">
+          &copy; 2025 JSON para Dart Converter. Todos os direitos reservados.
+        </div>
       </div>
     </footer>
 
@@ -184,6 +230,26 @@
         .then((response) => response.text())
         .then((data) => {
           document.getElementById("nav-placeholder").innerHTML = data;
+        });
+
+      // Visit Counter
+      function updateVisitCounter() {
+        const counter = localStorage.getItem("visitCounter") || 0;
+        const newCount = parseInt(counter) + 1;
+        localStorage.setItem("visitCounter", newCount);
+        document.getElementById("visitCounter").textContent = newCount;
+      }
+      updateVisitCounter();
+
+      // Donation System
+      document
+        .getElementById("donateBtn")
+        .addEventListener("click", function () {
+          // Here you would typically integrate with a payment gateway
+          // For now, we'll just show a message
+          alert(
+            "Obrigado pelo seu interesse em apoiar o projeto! Em breve, integraremos um sistema de pagamento seguro."
+          );
         });
 
       // Inicializa a instância do Ace Editor para o JSON de entrada
