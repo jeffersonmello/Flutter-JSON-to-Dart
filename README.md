@@ -81,9 +81,3 @@ Contribuições são bem-vindas! Sinta-se à vontade para:
 ## Licença
 
 Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
-
-## Contato
-
-Seu Nome - [@seutwitter](https://twitter.com/seutwitter) - email@exemplo.com
-
-Link do Projeto: [https://github.com/seuusuario/json-to-dart](https://github.com/seuusuario/json-to-dart)

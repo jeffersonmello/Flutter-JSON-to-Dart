@@ -183,6 +183,7 @@
               <div id="visitCounter" class="text-2xl font-bold text-white">
                 0
               </div>
+              <div id="lastUpdated" class="text-sm text-gray-400 mt-1"></div>
             </div>
           </div>
 
@@ -232,13 +233,48 @@
           document.getElementById("nav-placeholder").innerHTML = data;
         });
 
-      // Visit Counter
+      // Visit Counter with AJAX
       function updateVisitCounter() {
-        const counter = localStorage.getItem("visitCounter") || 0;
-        const newCount = parseInt(counter) + 1;
-        localStorage.setItem("visitCounter", newCount);
-        document.getElementById("visitCounter").textContent = newCount;
+        // First, increment the counter
+        fetch("update_visits.php", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            document.getElementById("visitCounter").textContent =
+              data.totalVisits;
+            if (data.lastUpdated) {
+              const date = new Date(data.lastUpdated);
+              document.getElementById(
+                "lastUpdated"
+              ).textContent = `Última atualização: ${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+            }
+          })
+          .catch((error) => {
+            console.error("Error updating visit counter:", error);
+            // If there's an error, try to at least get the current count
+            fetch("update_visits.php")
+              .then((response) => response.json())
+              .then((data) => {
+                document.getElementById("visitCounter").textContent =
+                  data.totalVisits;
+                if (data.lastUpdated) {
+                  const date = new Date(data.lastUpdated);
+                  document.getElementById(
+                    "lastUpdated"
+                  ).textContent = `Última atualização: ${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+                }
+              })
+              .catch((error) =>
+                console.error("Error fetching visit count:", error)
+              );
+          });
       }
+
+      // Update counter when page loads
       updateVisitCounter();
 
       // Donation System
